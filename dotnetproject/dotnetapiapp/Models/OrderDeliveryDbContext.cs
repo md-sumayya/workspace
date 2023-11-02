@@ -12,5 +12,7 @@ namespace dotnetapiapp.Models
         {
 
         }
+
+        public DbSet<User> Users { get; set;}
     }
 }
