@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnetapiapp", "dotnetapiapp\dotnetapiapp.csproj", "{C7CD3092-04AB-4D26-8876-A171A74E2B52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnetmvcapp", "dotnetmvcapp\dotnetmvcapp.csproj", "{C1AB0F8E-B5BD-4204-BB39-2B2977A5068C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "TestProject\TestProject.csproj", "{547BAB65-4BEF-44D4-8EF4-5522C85C62C5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C7CD3092-04AB-4D26-8876-A171A74E2B52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7CD3092-04AB-4D26-8876-A171A74E2B52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7CD3092-04AB-4D26-8876-A171A74E2B52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7CD3092-04AB-4D26-8876-A171A74E2B52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1AB0F8E-B5BD-4204-BB39-2B2977A5068C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1AB0F8E-B5BD-4204-BB39-2B2977A5068C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1AB0F8E-B5BD-4204-BB39-2B2977A5068C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1AB0F8E-B5BD-4204-BB39-2B2977A5068C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{547BAB65-4BEF-44D4-8EF4-5522C85C62C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{547BAB65-4BEF-44D4-8EF4-5522C85C62C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{547BAB65-4BEF-44D4-8EF4-5522C85C62C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{547BAB65-4BEF-44D4-8EF4-5522C85C62C5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
