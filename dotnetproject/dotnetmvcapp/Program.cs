@@ -1,7 +1,14 @@
+using dotnetmvcapp.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddHttpClient();
+
+builder.Services.AddScoped<IHttpClientService,HttpClientService>();
+builder.Services.AddScoped<IAccountService,AccountService>();
 
 var app = builder.Build();
 
