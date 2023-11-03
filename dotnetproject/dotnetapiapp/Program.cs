@@ -4,6 +4,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using dotnetapiapp.Models;
 using System.Text;
+using dotnetapiapp.Domain;
+using dotnetapiapp.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,9 +50,14 @@ builder.Services.AddAuthentication(option=>{
         ValidateAudience = false,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("this_secret_key_encrypts_the_token_string"))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("this_secret_key_encrypts_the_token_string")),
+        ValidIssuer = "https://8080-cfddbbbdedacfcbefaafbaaebaaffaffcdcfacc.premiumproject.examly.io",
+        ValidAudience = "https://8080-cfddbbbdedacfcbefaafbaaebaaffaffcdcfacc.premiumproject.examly.io"
     };
 });
+
+builder.Services.AddScoped<IAccountProcessor,AccountProcessor>();
+builder.Services.AddScoped<IAccountRepository,AccountRepository>();
 
 var app = builder.Build();
 

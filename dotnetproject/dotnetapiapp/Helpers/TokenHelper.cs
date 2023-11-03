@@ -24,7 +24,9 @@ namespace dotnetapiapp.Helpers
                     }
                 ),
                 Expires = DateTime.UtcNow.AddMinutes(30),
-                SigningCredentials = signingCreds
+                SigningCredentials = signingCreds,
+                Issuer = "https://8080-cfddbbbdedacfcbefaafbaaebaaffaffcdcfacc.premiumproject.examly.io",
+                Audience = "https://8080-cfddbbbdedacfcbefaafbaaebaaffaffcdcfacc.premiumproject.examly.io"
             };
             var handler = new JwtSecurityTokenHandler();
             var token = handler.CreateJwtSecurityToken(descriptor);

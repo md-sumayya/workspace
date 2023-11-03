@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using dotnetapiapp.Models;
-using dotnetapiapp.Helpers;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using dotnetapiapp.Common;
+using dotnetapiapp.Domain;
 
 namespace dotnetapiapp.Controllers
 {
@@ -14,27 +14,22 @@ namespace dotnetapiapp.Controllers
     [Route("api/[controller]")]
     public class AccountController : ControllerBase
     {
-        private readonly OrderDeliveryDbContext _context;
-        public AccountController(OrderDeliveryDbContext context){
-            _context = context;
+        private readonly IAccountProcessor _processor; 
+        public AccountController(IAccountProcessor processor){
+            _processor = processor;
         }
 
         [Route("Login")]
         [HttpPost]
         public async Task<ActionResult> Login(Login model){
             try{
-                var user = await _context.Users.FirstOrDefaultAsync(o=>o.Email == model.Email);
-                if(user == null){
-                    return NotFound();
-                }
-                var passwordHash = PasswordHelper.ComputeHash(model.Password,user.PasswordSalt);
-                if(user.PasswordHash != passwordHash){
-                    return BadRequest();
-                }
-                var token = TokenHelper.GenerateToken(user.UserName,user.UserRole.ToString());
-                return Ok(token);
+                var result = await _processor.Login(model);
+                return Ok(result);
             }
-            catch(Exception ex){
+            catch(CustomException ex){
+                return BadRequest(ex.Message);
+            }
+            catch(Exception ex){           
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
@@ -43,15 +38,11 @@ namespace dotnetapiapp.Controllers
         [Route("Register")]
         public async Task<ActionResult> Register(Register model){
             try{
-                var user = new User(model);
-                var salt = PasswordHelper.GenerateSalt();
-                var passwordHash = PasswordHelper.ComputeHash(model.Password,salt);
-                user.PasswordHash = passwordHash;
-                user.PasswordSalt = salt;
-                _context.Users.Add(user);
-                _context.SaveChanges();
-                var token = TokenHelper.GenerateToken(user.UserName,user.UserRole.ToString());
-                return Ok(token);
+                var response = await _processor.Register(model);
+                return Ok(response);
+            }
+            catch(CustomException ex){
+                return BadRequest(ex.Message);
             }
             catch(Exception ex){
                 return StatusCode(StatusCodes.Status500InternalServerError);
