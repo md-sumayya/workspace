@@ -5,23 +5,23 @@ using System.Threading.Tasks;
 
 namespace dotnetapiapp.Models
 {
-    public class User : BaseEntity
+    public class UserDetails
     {
-        public User(){
+        public UserDetails(){
 
         }
-        public User(Register model){
+        public UserDetails(User model){
             UserName = model.UserName;
             UserRole = model.UserRole;
             Email = model.Email;
             PhoneNumber = model.PhoneNumber;
+            Id = model.Id;
         }
-        
+        public int Id { get; set; }
         public string UserName { get; set; }
-        public string PasswordHash { get; set; }
-        public string PasswordSalt { get; set; }
         public Role UserRole { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
+        
     }
 }

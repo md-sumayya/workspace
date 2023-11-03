@@ -51,8 +51,11 @@ namespace dotnetapiapp.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult> Get(){
-            return Ok("success auth");
+        [Route("GetUserDetailsByEmail/{email}")]
+        public async Task<ActionResult> GetUserDetailsByEmail(string email){
+            Console.WriteLine(email);
+            var resp = await _processor.GetUserByEmail(email);
+            return Ok(resp);
         }
 
         [HttpGet]
@@ -66,6 +69,12 @@ namespace dotnetapiapp.Controllers
         [Authorize(Roles = "DeliveryBoy")]
         [Route("DeliveryBoy")]
         public async Task<ActionResult> DevilveryBoy(){
+            return Ok("success auth");
+        }
+
+        [HttpGet]
+        [Route("Test")]
+        public async Task<ActionResult> Test(){
             return Ok("success auth");
         }
     }

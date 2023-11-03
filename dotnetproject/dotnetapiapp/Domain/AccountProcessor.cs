@@ -13,6 +13,7 @@ namespace dotnetapiapp.Domain
     public interface IAccountProcessor{
         public Task<AuthResponse> Login(Login model);
         public Task<AuthResponse> Register(Register model);
+        public Task<UserDetails> GetUserByEmail(string email);
     }
     public class AccountProcessor : IAccountProcessor
     {
@@ -29,7 +30,7 @@ namespace dotnetapiapp.Domain
             if(user.PasswordHash != passwordHash){
                 throw new CustomException("Passwords doesnot match");
             }
-            var token = TokenHelper.GenerateToken(user.UserName,user.UserRole.ToString());
+            var token = TokenHelper.GenerateToken(user.UserName,user.Email,user.UserRole.ToString());
             return new AuthResponse{Token=token};
         }
 
@@ -44,8 +45,16 @@ namespace dotnetapiapp.Domain
             user.PasswordHash = passwordHash;
             user.PasswordSalt = salt;
             user =  await _repo.CreateUser(user);
-            var token = TokenHelper.GenerateToken(user.UserName,user.UserRole.ToString());
+            var token = TokenHelper.GenerateToken(user.UserName,user.Email,user.UserRole.ToString());
             return new AuthResponse{Token=token};
+        }
+
+        public async Task<UserDetails> GetUserByEmail(string email){    
+            var user = await _repo.GetUserByEmail(email);
+            if(user == null){
+                throw new CustomException("User not Found");
+            }
+            return new UserDetails(user);
         }
     }
 }

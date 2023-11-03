@@ -12,7 +12,7 @@ namespace dotnetapiapp.Helpers
     public static class TokenHelper
     {
         private static string secret = "this_secret_key_encrypts_the_token_string";
-        public static string GenerateToken(string userName,string role){
+        public static string GenerateToken(string userName,string email,string role){
             byte[] byteKey = Encoding.UTF8.GetBytes(secret);
             var securityKey = new SymmetricSecurityKey(byteKey);
             var signingCreds = new SigningCredentials(securityKey,SecurityAlgorithms.HmacSha256Signature);
@@ -20,6 +20,7 @@ namespace dotnetapiapp.Helpers
                 Subject = new ClaimsIdentity(
                     new[] {
                         new Claim(ClaimTypes.Name, userName),
+                        new Claim(ClaimTypes.Email, email),
                         new Claim(ClaimTypes.Role, role)
                     }
                 ),
