@@ -20,8 +20,13 @@ namespace dotnetmvcapp.Services
         }
 
         public async Task<AuthResponse> Login(Login model){
+            try{
             var resp = await _httpClientService.Post<AuthResponse>(RouteConstants.AccountServiceRoutes.Login,model);
             return resp;
+            }
+            catch(Exception ex){
+                return new AuthResponse();
+            }
         }
         public async Task<AuthResponse> Register(Register model){
             var resp = await _httpClientService.Post<AuthResponse>(RouteConstants.AccountServiceRoutes.Register,model);

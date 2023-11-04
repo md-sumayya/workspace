@@ -1,8 +1,80 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model Login
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@{
+    ViewData["Title"] = "Login Page";
+}
+@* <style>
+  body{background: #0000000000000}.card{border: none;height: 320px}.forms-inputs{position: relative}.forms-inputs span{position: absolute;top:-18px;left: 10px;background-color: #fff;padding: 5px 10px;font-size: 15px}.forms-inputs input{height: 50px;border: 2px solid #eee}.forms-inputs input:focus{box-shadow: none;outline: none;border: 2px solid #000}.btn{height: 50px}.success-data{display: flex;flex-direction: column}.bxs-badge-check{font-size: 90px}
+</style> *@
+
+
+  <div class="container">
+    <div class="row">
+        <div class="col-md-4 mx-auto">
+            <div class="card">
+                <div class="card-body">
+                    @* <div class="form-data" v-if="!submitted">
+                    <div class="forms-inputs mb-4"> <span>Email or username</span> <input autocomplete="off" type="text" v-model="email" v-bind:class="{'form-control':true, 'is-invalid' : !validEmail(email) && emailBlured}" v-on:blur="emailBlured = true">
+                        <div class="invalid-feedback">A valid email is required!</div>
+                    </div>
+                    <div class="forms-inputs mb-4"> <span>Password</span> <input autocomplete="off" type="password" v-model="password" v-bind:class="{'form-control':true, 'is-invalid' : !validPassword(password) && passwordBlured}" v-on:blur="passwordBlured = true">
+                        <div class="invalid-feedback">Password must be 8 character!</div>
+                    </div>
+                    <div class="mb-3"> <button v-on:click.stop.prevent="submit" class="btn btn-dark w-100">Login</button> </div>
+                </div> *@
+                    <div class="row">
+                        <div class="col">
+                            <h3>Login Page</h3>
+                            <hr>
+                        </div>
+                    </div>
+
+                    <form asp-controller="Home" asp-action="Index" method="post">         
+
+
+                    <div class="row">
+                        <div class="col">
+                            <label>Email</label>
+
+                                       
+
+
+
+                            @Html.TextBoxFor(u=>u.Email, new {@class="form-control"})
+
+
+                            <span asp-validation-for="Email" class="text-danger"></span>       
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label>Password</label>
+
+
+                                                    
+                            @Html.PasswordFor(u=>u.Password, new {@class="form-control"})
+                            <span asp-validation-for="Password" class="text-danger"></span>    
+                        </div>
+                    </div>
+                    <br>
+                    <div class="col">
+                        <center>
+                            <button class="btn btn-success btn-md" >Login</button>
+                        </center>
+                        
+                    </div>
+                    </form>
+                </div>
+                
+                
+                
+            </div>
+        </div>
+    </div>
 </div>
+
+
+
+
+

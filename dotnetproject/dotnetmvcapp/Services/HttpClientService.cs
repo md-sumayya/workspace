@@ -61,7 +61,9 @@ namespace dotnetmvcapp.Services
                 var response = await JsonSerializer.DeserializeAsync<T>(contentStream);
                 return response;
             }
-            throw new Exception("API Unavailable");
+                using var contentStream1 = await httpResponseMessage.Content.ReadAsStreamAsync();
+                var resp = await JsonSerializer.DeserializeAsync<string>(contentStream1);
+            throw new Exception(resp);
         }
     }
 }
