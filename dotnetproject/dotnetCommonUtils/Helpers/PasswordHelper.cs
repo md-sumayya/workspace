@@ -1,7 +1,7 @@
 using System.Text;
 using System.Security.Cryptography;
 
-namespace dotnetapiapp.Helpers
+namespace dotnetCommonUtils.Helpers
 {
     public static class PasswordHelper
     {
@@ -19,6 +19,6 @@ namespace dotnetapiapp.Helpers
             var byteValue = Encoding.UTF8.GetBytes(saltedPassword);
             var hash = sha256.ComputeHash(byteValue);
             return Convert.ToBase64String(hash);
-        }
+        }        
     }
 }

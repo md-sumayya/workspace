@@ -1,9 +1,13 @@
-using System.Text;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.DependencyInjection;
+using System.Text;
 
-namespace dotnetapiapp.Extentions
+namespace dotnetCommonUtils.Extenstions
 {
     public static class AuthExtention
     {

@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using dotnetapiapp.Models;
 using dotnetapiapp.Common;
 using Microsoft.EntityFrameworkCore;
-using dotnetapiapp.Helpers;
 using dotnetapiapp.Repository;
+using dotnetCommonUtils.Helpers;
 
 namespace dotnetapiapp.Domain
 {
@@ -31,7 +31,7 @@ namespace dotnetapiapp.Domain
                 throw new CustomException("Passwords doesnot match");
             }
             var token = TokenHelper.GenerateToken(user.UserName,user.Email,user.UserRole.ToString());
-            return new AuthResponse{Token=token};
+            return new AuthResponse{Token=token,UserName=user.UserName,Email=user.Email};
         }
 
         public async Task<AuthResponse> Register(Register model){        
@@ -46,7 +46,7 @@ namespace dotnetapiapp.Domain
             user.PasswordSalt = salt;
             user =  await _repo.CreateUser(user);
             var token = TokenHelper.GenerateToken(user.UserName,user.Email,user.UserRole.ToString());
-            return new AuthResponse{Token=token};
+            return new AuthResponse{Token=token,UserName=user.UserName,Email=user.Email};
         }
 
         public async Task<UserDetails> GetUserByEmail(string email){    

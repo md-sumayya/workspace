@@ -1,4 +1,5 @@
 using dotnetapiapp.Extentions;
+using dotnetCommonUtils.Extenstions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +16,7 @@ builder.Services.AddOrderDbContext(builder);
 builder.Services.AddCustomAuthentication();
 
 builder.Services.AddProcessor();
-builder.Services.AddRepository();
+builder.Services.AddRepository();   
 
 var app = builder.Build();
 
