@@ -7,6 +7,7 @@ using dotnetapiapp.Models;
 using Microsoft.AspNetCore.Authorization;
 using dotnetapiapp.Common;
 using dotnetapiapp.Domain;
+using dotnetCommonUtils.CommonModels;
 
 namespace dotnetapiapp.Controllers
 {
@@ -24,10 +25,18 @@ namespace dotnetapiapp.Controllers
         public async Task<ActionResult> Login(Login model){
             try{
                 var result = await _processor.Login(model);
-                return Ok(result);
+                var response = new ResponseObject<AuthResponse>{
+                    IsSuccess = true,
+                    data = result
+                };
+                return Ok(response);
             }
             catch(CustomException ex){
-                return BadRequest(ex.Message);
+                var response = new ResponseObject<AuthResponse>{
+                    IsSuccess = false,
+                    ErrorMessage = ex.Message
+                };
+                return BadRequest(response);
             }
             catch(Exception ex){           
                 return StatusCode(StatusCodes.Status500InternalServerError);
@@ -38,11 +47,19 @@ namespace dotnetapiapp.Controllers
         [Route("Register")]
         public async Task<ActionResult> Register(Register model){
             try{
-                var response = await _processor.Register(model);
+                var result = await _processor.Register(model);
+                var response = new ResponseObject<AuthResponse>{
+                    IsSuccess = true,
+                    data = result
+                };
                 return Ok(response);
             }
             catch(CustomException ex){
-                return BadRequest(ex.Message);
+                var response = new ResponseObject<AuthResponse>{
+                    IsSuccess = false,
+                    ErrorMessage = ex.Message
+                };
+                return BadRequest(response);
             }
             catch(Exception ex){
                 return StatusCode(StatusCodes.Status500InternalServerError);
@@ -53,9 +70,24 @@ namespace dotnetapiapp.Controllers
         [Authorize]
         [Route("GetUserDetailsByEmail/{email}")]
         public async Task<ActionResult> GetUserDetailsByEmail(string email){
-            Console.WriteLine(email);
-            var resp = await _processor.GetUserByEmail(email);
-            return Ok(resp);
+            try{
+                var result = await _processor.GetUserByEmail(email);
+                var response = new ResponseObject<UserDetails>{
+                    IsSuccess = true,
+                    data = result
+                };
+                return Ok(response);
+            }
+            catch(CustomException ex){
+                var response = new ResponseObject<UserDetails>{
+                    IsSuccess = false,
+                    ErrorMessage = ex.Message
+                };
+                return BadRequest(response);
+            }
+            catch(Exception ex){
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
 
         [HttpGet]

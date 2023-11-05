@@ -29,16 +29,19 @@ namespace dotnetmvcapp.Controllers
                 // You can use your service or repository to check the credentials here
                 var response =await _accountService.Login(login);
 
-                if (response.token!=null)
+                if (response.IsSuccess)
                 {
-                    HttpContext.Session.SetString("AuthToken", response.token);
+                    var data = response.data;
+                    HttpContext.Session.SetString("AuthToken", data.Token);
+                    HttpContext.Session.SetString("UserName", data.UserName);
+                    HttpContext.Session.SetString("Email", data.Email);
 
                     // Redirect to the dashboard page
                     return RedirectToAction("Dashboard", "Home");
                 }
                 else
                 {
-                    ModelState.AddModelError("Password", "Invalid login attempt.");
+                    ModelState.AddModelError("Password", response.ErrorMessage);
                 }
             }
             return View(login);
@@ -58,9 +61,16 @@ namespace dotnetmvcapp.Controllers
 
         public async Task<IActionResult> Test()
         {
-            var resp = await _accountService.Login(new Login{Email="jafrin@gmail.com",
-                                            Password="admin@123"});
-            Console.WriteLine(resp.token);
+            // Console.WriteLine("Test start");
+            // Console.WriteLine(HttpContext.Session.GetString("UserName"));
+            // Console.WriteLine(HttpContext.User);
+            // var response = await _accountService.Login(new Login{Email="jafrin@gmail.com",
+            //                                 Password="admin@123"});
+            //         HttpContext.Session.SetString("AuthToken", response.Token);
+            //         HttpContext.Session.SetString("UserName", response.UserName);
+            //         HttpContext.Session.SetString("Email", response.Email);
+            // Console.WriteLine(response.token);
+            // Console.WriteLine(HttpContext.Session.GetString("UserName"));
             return View();
         }
     }

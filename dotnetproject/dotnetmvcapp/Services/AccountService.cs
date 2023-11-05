@@ -4,12 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using dotnetmvcapp.RouteConstants;
 using dotnetmvcapp.Models;
+using dotnetCommonUtils.CommonModels;
 
 namespace dotnetmvcapp.Services
 {
     public interface IAccountService {
-        public Task<AuthResponse> Login(Login model);
-        public Task<AuthResponse> Register(Register model);
+        public Task<ResponseObject<AuthResponse>> Login(Login model);
+        public Task<ResponseObject<AuthResponse>> Register(Register model);
     }
     public class AccountService : IAccountService
     {
@@ -19,16 +20,11 @@ namespace dotnetmvcapp.Services
             _httpClientService = httpClientService;
         }
 
-        public async Task<AuthResponse> Login(Login model){
-            try{
+        public async Task<ResponseObject<AuthResponse>> Login(Login model){
             var resp = await _httpClientService.Post<AuthResponse>(RouteConstants.AccountServiceRoutes.Login,model);
             return resp;
-            }
-            catch(Exception ex){
-                return new AuthResponse();
-            }
         }
-        public async Task<AuthResponse> Register(Register model){
+        public async Task<ResponseObject<AuthResponse>> Register(Register model){
             var resp = await _httpClientService.Post<AuthResponse>(RouteConstants.AccountServiceRoutes.Register,model);
             return resp;
         }
